@@ -23,11 +23,11 @@ def postprocess_image(pred):
     return pred
 
 # Predict on a new image
-noisy_image_path = 'path_to_noisy_image.bmp'
+noisy_image_path = './dataset/input/002.bmp'
 noisy_image = preprocess_image(noisy_image_path)
 cleaned_image = model.predict(noisy_image)
 
 # Save the cleaned image
 cleaned_image = postprocess_image(cleaned_image)
-cv2.imwrite('cleaned_image.bmp', cleaned_image)
+cv2.imwrite('cleaned_image2.bmp', cleaned_image)
 print("Cleaned image saved!")
