@@ -6,21 +6,26 @@ from filtering import X_train, X_val, y_train, y_val, X_test, y_test
 from model import unet_model
 import tensorflow as tf
 
-# init the UNet model
-input_shape = (512, 1000, 1)
-model = unet_model(input_shape)
-
 # assign higher weight to white pixels (corneal layer) in loss func
 def weighted_binary_crossentropy(y_true, y_pred):
     weight_background = 0.2
     weight_foreground = 1.0
     weights = y_true * weight_foreground + (1 - y_true) * weight_background
-    bce = tf.keras.losses.binary_crossentropy(y_true, y_pred)
+
+    # binary crossentropy loss obj no reduction
+    bce_fn = tf.keras.losses.BinaryCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
+
+    bce = bce_fn(y_true, y_pred)
+    bce = tf.expand_dims(bce, axis=-1)
     weighted_bce = weights * bce
     return tf.reduce_mean(weighted_bce)
 
+# init the UNet model
+input_shape = (512, 1000, 1)
+model = unet_model(input_shape)
+
 # compile the model
-model.compile(optimizer='adam', loss='weighted_binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='adam', loss=weighted_binary_crossentropy, metrics=['accuracy'])
 
 # train the model
 # optimize # of epochs and batch size
