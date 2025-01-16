@@ -31,12 +31,66 @@ model.compile(optimizer='adam', loss=weighted_binary_crossentropy, metrics=['acc
 # optimize # of epochs and batch size
 # grid optimization
 # Underfitting
-history = model.fit(
-    X_train, y_train,
-    validation_data=(X_val, y_val),
-    epochs=20,
-    batch_size=16
-)
+
+# params
+epochs = 20
+batch_size = 1
+accumulation_steps = 4
+
+# data set
+train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train)).batch(batch_size)
+val_dataset = tf.data.Dataset.from_tensor_slices((X_val, y_val)).batch(batch_size)
+
+# optimizer
+optimizer = tf.keras.optimizers.Adam()
+
+# loss obj
+loss_object = tf.keras.losses.BinaryCrossentropy()
+
+# training loop
+for epoch in range(epochs):
+    print(f"\nEpoch {epoch + 1}/{epochs}")
+
+    # init accumulators for gradients and losses
+    accumulated_gradients = [tf.zeros_like(var) for var in model.trainable_variables]
+    epoch_loss = 0
+
+    for step, (x_batch, y_batch) in enumerate(train_dataset):
+        with tf.GradientTape() as tape:
+            predictions = model(x_batch, training=True)
+            loss = loss_object(y_batch, predictions) / accumulation_steps
+
+        # compute gradients
+        gradients = tape.gradient(loss, model.trainable_variables)
+
+        # accum gradients
+        for i, grad in enumerate(gradients):
+            accumulated_gradients[i] += grad
+
+        # apply gradients every 'accumulation_steps'
+        if (step + 1) % accumulation_steps == 0 or (step + 1) == len(train_dataset):
+            optimizer.apply_gradients(zip(accumulated_gradients, model.trainable_variables))
+
+            # reset accumulators
+            accumulated_gradients = [tf.zeros_like(var) for var in model.trainable_variables]
+
+        epoch_loss += loss.numpy()
+    print(f"Epoch {epoch + 1} Loss: {epoch_loss:.4f}")
+
+    # validation
+    val_loss = 0
+    for x_batch, y_batch in val_dataset:
+        predictions = model(x_batch, training=False)
+        val_loss += loss_object(y_batch, predictions).numpy()
+
+    print(f"Validation Loss: {val_loss / len(val_dataset):.4f}")
+
+# history = model.fit(
+#     X_train, y_train,
+#     validation_data=(X_val, y_val),
+#     epochs=20,
+#     batch_size=4
+# )
 
 # save the trained model
 model.save('oct_filter_model.h5')
