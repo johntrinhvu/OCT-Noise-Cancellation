@@ -1,0 +1,82 @@
+Validation results:
+Epoch 1 Loss: 2.7983, Accuracy: 0.9939
+Validation Loss: 0.0284, Validation Accuracy: 0.9942
+
+Epoch 2/20
+Epoch 2 Loss: 0.6151, Accuracy: 0.9939
+Validation Loss: 0.0204, Validation Accuracy: 0.9942
+
+Epoch 3/20
+Epoch 3 Loss: 0.4542, Accuracy: 0.9939
+Validation Loss: 0.0145, Validation Accuracy: 0.9942
+
+Epoch 4/20
+Epoch 4 Loss: 0.3383, Accuracy: 0.9939
+Validation Loss: 0.0124, Validation Accuracy: 0.9942
+
+Epoch 5/20
+Epoch 5 Loss: 0.3040, Accuracy: 0.9939
+Validation Loss: 0.0117, Validation Accuracy: 0.9942
+
+Epoch 6/20
+Epoch 6 Loss: 0.2860, Accuracy: 0.9939
+Validation Loss: 0.0109, Validation Accuracy: 0.9942
+
+Epoch 7/20
+Epoch 7 Loss: 0.2717, Accuracy: 0.9940
+Validation Loss: 0.0104, Validation Accuracy: 0.9943
+
+Epoch 8/20
+Epoch 8 Loss: 0.2642, Accuracy: 0.9941
+Validation Loss: 0.0101, Validation Accuracy: 0.9944
+
+Epoch 9/20
+Epoch 9 Loss: 0.2613, Accuracy: 0.9941
+Validation Loss: 0.0102, Validation Accuracy: 0.9943
+Reduced learning rate to current_lr:.6f
+
+Epoch 10/20
+Epoch 10 Loss: 0.2538, Accuracy: 0.9941
+Validation Loss: 0.0098, Validation Accuracy: 0.9944
+
+Epoch 11/20
+Epoch 11 Loss: 0.2509, Accuracy: 0.9942
+Validation Loss: 0.0098, Validation Accuracy: 0.9944
+Reduced learning rate to current_lr:.6f
+
+Epoch 12/20
+Epoch 12 Loss: 0.2481, Accuracy: 0.9942
+Validation Loss: 0.0098, Validation Accuracy: 0.9944
+
+Epoch 13/20
+Epoch 13 Loss: 0.2473, Accuracy: 0.9942
+Validation Loss: 0.0098, Validation Accuracy: 0.9944
+Reduced learning rate to current_lr:.6f
+
+Epoch 14/20
+Epoch 14 Loss: 0.2457, Accuracy: 0.9942
+Validation Loss: 0.0096, Validation Accuracy: 0.9944
+
+Epoch 15/20
+Epoch 15 Loss: 0.2440, Accuracy: 0.9942
+Validation Loss: 0.0095, Validation Accuracy: 0.9944
+
+Epoch 16/20
+Epoch 16 Loss: 0.2433, Accuracy: 0.9942
+Validation Loss: 0.0095, Validation Accuracy: 0.9944
+
+Epoch 17/20
+Epoch 17 Loss: 0.2426, Accuracy: 0.9942
+Validation Loss: 0.0095, Validation Accuracy: 0.9945
+
+Epoch 18/20
+Epoch 18 Loss: 0.2421, Accuracy: 0.9942
+Validation Loss: 0.0094, Validation Accuracy: 0.9945
+
+Epoch 19/20
+Epoch 19 Loss: 0.2415, Accuracy: 0.9942
+Validation Loss: 0.0094, Validation Accuracy: 0.9945
+
+Epoch 20/20
+Epoch 20 Loss: 0.2410, Accuracy: 0.9942
+Validation Loss: 0.0094, Validation Accuracy: 0.9945

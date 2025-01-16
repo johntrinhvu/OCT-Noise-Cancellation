@@ -41,7 +41,7 @@ def combined_loss(y_true, y_pred):
 
 # Load the trained model
 model = load_model(
-    'oct_filter_model3.h5', 
+    'oct_filter_model4.h5', 
     custom_objects={
         'weighted_binary_crossentropy': weighted_binary_crossentropy,
         'dice_loss': dice_loss,
@@ -71,5 +71,5 @@ cleaned_image = model.predict(noisy_image)
 
 # Save the cleaned image
 cleaned_image = postprocess_image(cleaned_image)
-cv2.imwrite('./cleaned_images/third_model_attempts/cleaned_image8.bmp', cleaned_image)
+cv2.imwrite('./cleaned_images/fourth_model_attempts/cleaned_image9.bmp', cleaned_image)
 print("Cleaned image saved!")

@@ -47,7 +47,7 @@ model.compile(optimizer='adam', loss=combined_loss, metrics=['accuracy'])
 # params
 epochs = 20
 batch_size = 1
-accumulation_steps = 4
+accumulation_steps = 8
 
 # data set
 train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train)).batch(batch_size).prefetch(tf.data.AUTOTUNE)
