@@ -11,6 +11,7 @@ AND CHANGE THE FILE NAME OF THE IMAGE THAT WILL BE CREATED ON LINE 54.
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
+from loss_functions import weighted_binary_crossentropy, dice_loss, combined_loss
 import tensorflow as tf
 
 gpus = tf.config.list_physical_devices('GPU')
@@ -20,24 +21,6 @@ if gpus:
             tf.config.experimental.set_memory_growth(gpu, True)
     except RuntimeError as e:
         print(e)
-
-# loss function
-def weighted_binary_crossentropy(y_true, y_pred):
-    weight_background = 0.2
-    weight_foreground = 1.0
-    weights = y_true * weight_foreground + (1 - y_true) * weight_background
-    bce = tf.keras.losses.binary_crossentropy(y_true, y_pred)
-    weighted_bce = weights * bce
-    return tf.reduce_mean(weighted_bce)
-
-# dice loss, combined loss
-def dice_loss(y_true, y_pred):
-    numerator = 2 * tf.reduce_sum(y_true * y_pred)
-    denominator = tf.reduce_sum(y_true + y_pred)
-    return 1 - (numerator + 1e-7) / (denominator + 1e-7)
-
-def combined_loss(y_true, y_pred):
-    return 0.5 * weighted_binary_crossentropy(y_true, y_pred) + 0.5 * dice_loss(y_true, y_pred)
 
 # Load the trained model
 model = load_model(

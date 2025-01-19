@@ -4,33 +4,8 @@
 
 from filtering import X_train, X_val, y_train, y_val, X_test, y_test
 from model import unet_model
+from loss_functions import weighted_binary_crossentropy, dice_loss, combined_loss
 import tensorflow as tf
-
-# assign higher weight to white pixels (corneal layer) in loss func
-def weighted_binary_crossentropy(y_true, y_pred):
-    foreground_ratio = tf.reduce_mean(y_true)
-    background_ratio = 1 - foreground_ratio
-
-    weight_foreground = 1.0 / (foreground_ratio + 1e-7)
-    weight_background = 0.2 / (background_ratio + 1e-7)
-    weights = y_true * weight_foreground + (1 - y_true) * weight_background
-
-    # binary crossentropy loss obj no reduction
-    bce_fn = tf.keras.losses.BinaryCrossentropy(reduction=tf.keras.losses.Reduction.NONE)
-
-    bce = bce_fn(y_true, y_pred)
-    bce = tf.expand_dims(bce, axis=-1)
-    weighted_bce = weights * bce
-    return tf.reduce_mean(weighted_bce)
-
-# better boundary learning
-def dice_loss(y_true, y_pred):
-    numerator = 2 * tf.reduce_sum(y_true * y_pred)
-    denominator = tf.reduce_sum(y_true + y_pred)
-    return 1 - (numerator + 1e-7) / (denominator + 1e-7)
-
-def combined_loss(y_true, y_pred):
-    return 0.5 * weighted_binary_crossentropy(y_true, y_pred) + 0.5 * dice_loss(y_true, y_pred)
 
 # init the UNet model
 input_shape = (512, 1000, 1)
@@ -38,11 +13,6 @@ model = unet_model(input_shape)
 
 # compile the model
 model.compile(optimizer='adam', loss=combined_loss, metrics=['accuracy'])
-
-# train the model
-# optimize # of epochs and batch size
-# grid optimization
-# Underfitting
 
 # params
 epochs = 20
@@ -53,13 +23,9 @@ accumulation_steps = 4
 train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train)).batch(batch_size).prefetch(tf.data.AUTOTUNE)
 val_dataset = tf.data.Dataset.from_tensor_slices((X_val, y_val)).batch(batch_size).prefetch(tf.data.AUTOTUNE)
 
-# optimizer
+# optimizer, loss object, and learning rate
 optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)
-
-# loss obj
 loss_object = tf.keras.losses.BinaryCrossentropy()
-
-# init learning rate
 current_lr = optimizer.learning_rate.numpy()
 
 # training loop
