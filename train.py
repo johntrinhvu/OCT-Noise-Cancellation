@@ -7,21 +7,26 @@ from model import unet_model
 from loss_functions import weighted_binary_crossentropy, dice_loss, combined_loss
 import tensorflow as tf
 
+
 # init the UNet model
 input_shape = (512, 1000, 1)
 model = unet_model(input_shape)
 
+
 # compile the model
 model.compile(optimizer='adam', loss=combined_loss, metrics=['accuracy'])
+
 
 # params
 epochs = 20
 batch_size = 1
 accumulation_steps = 4
 
+
 # data set
 train_dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train)).batch(batch_size).prefetch(tf.data.AUTOTUNE)
 val_dataset = tf.data.Dataset.from_tensor_slices((X_val, y_val)).batch(batch_size).prefetch(tf.data.AUTOTUNE)
+
 
 # optimizer, loss object, and learning rate
 optimizer = tf.keras.optimizers.Adam(learning_rate=1e-3)

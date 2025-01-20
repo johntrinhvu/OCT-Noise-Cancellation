@@ -11,8 +11,10 @@ from sklearn.model_selection import train_test_split
 input_dir = "dataset/input"
 target_dir = "dataset/target"
 
+
 # params:
 img_size = (1000, 512) # resizing all images to this size
+
 
 # loading of the images
 def load_images(img_dir, img_size):
@@ -32,6 +34,7 @@ def load_images(img_dir, img_size):
 
     return np.array(images)
 
+
 # load both the inp and clean images
 try:
     input_images = load_images(input_dir, img_size)
@@ -41,9 +44,11 @@ except Exception as e:
     print(f"Error during image loading: {e}")
     raise
 
+
 # normal the pixel vals to range [0, 1]
 input_images = input_images / 255.0
 target_images = target_images / 255.0
+
 
 # extr dimension, tensorflow/pytorch
 input_images = input_images[..., np.newaxis]
@@ -55,9 +60,11 @@ X_train, X_temp, y_train, y_temp = train_test_split(
     input_images, target_images, test_size=0.3, random_state=42
 )
 
+
 X_val, X_test, y_val, y_test = train_test_split(
     X_temp, y_temp, test_size=0.5, random_state=42
 )
+
 
 # 70% training, 15% validation, 15% testing
 print(f"Training set: {X_train.shape}, {y_train.shape}")
