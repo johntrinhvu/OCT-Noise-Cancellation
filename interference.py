@@ -75,8 +75,8 @@ def process_images(input_folder, output_folder, img_size=(1000, 512)):
 
 
 # Specify input and output folders
-input_folder = './cleaned_images/test_interference'
-output_folder = './cleaned_images/test_interference_output'
+input_folder = './test'
+output_folder = './test_output'
 
 # Process images
 process_images(input_folder, output_folder)
