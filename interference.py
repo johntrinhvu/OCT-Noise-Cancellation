@@ -25,7 +25,7 @@ if gpus:
 
 # Load the trained model
 model = load_model(
-    'oct_filter_model4.h5', 
+    'oct_filter_model_1_27_25_with_dark_eyes.h5', 
     custom_objects={
         'weighted_binary_crossentropy': weighted_binary_crossentropy,
         'dice_loss': dice_loss,
@@ -75,8 +75,8 @@ def process_images(input_folder, output_folder, img_size=(1000, 512)):
 
 
 # Specify input and output folders
-input_folder = './test'
-output_folder = './test_output'
+input_folder = './test_inp'
+output_folder = './test_out'
 
 # Process images
 process_images(input_folder, output_folder)
