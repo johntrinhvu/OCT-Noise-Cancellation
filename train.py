@@ -101,7 +101,7 @@ for epoch in range(epochs):
 
 
 # save the trained model
-model.save('oct_filter_model_1_27_25_with_dark_eyes.h5')
+model.save('oct_filter_model_2_06_2025.h5')
 
 # print training results
 print("Training complete")
