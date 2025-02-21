@@ -6,3 +6,5 @@ The purpose of this application developed is to take a bmp file of an OCT image 
 
 ### Accuracy
 The current model oct_filter_model4.h5 runs with a 99.45% accuracy of canceling out unnecessary noise on a 300 OCT image sample.
+Current model with black_and_white images runs with 99.36% accuracy.
+
