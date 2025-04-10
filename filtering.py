@@ -8,8 +8,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 # paths:
-input_dir = "dataset/new_input"
-target_dir = "dataset/new_target"
+input_dir = "dataset/first_undercurve_input"
+target_dir = "dataset/first_undercurve_target"
 
 
 # params:

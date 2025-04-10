@@ -25,7 +25,7 @@ if gpus:
 
 # Load the trained model
 model = load_model(
-    'oct_filter_model_2_06_2025.h5', 
+    'filter_model_undercurve.h5', 
     custom_objects={
         'weighted_binary_crossentropy': weighted_binary_crossentropy,
         'dice_loss': dice_loss,

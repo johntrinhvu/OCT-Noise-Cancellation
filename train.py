@@ -101,7 +101,7 @@ for epoch in range(epochs):
 
 
 # save the trained model
-model.save('oct_filter_model_2_06_2025.h5')
+model.save('filter_model_undercurve.h5')
 
 # print training results
 print("Training complete")
